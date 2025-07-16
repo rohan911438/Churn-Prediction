@@ -4,9 +4,7 @@ churn_env/
 # Ignore Jupyter checkpoint files
 .ipynb_checkpoints/
 
-# Ignore model files
-*.h5
-*.pkl
+
 
 # Ignore compiled files
 __pycache__/

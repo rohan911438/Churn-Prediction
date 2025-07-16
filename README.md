@@ -12,13 +12,18 @@ This project is a comprehensive solution for predicting bank customer churn. It 
 ## 📂 Project Structure
 
 ```
-├── app.py                  # The main Streamlit application file
-├── churn-prediction (1).ipynb # Jupyter Notebook with data analysis and model training
-├── customer_churn.csv      # The dataset used for training the model
-├── requirements.txt        # A list of the Python libraries required to run the project
-├── churn_model.pkl         # The saved machine learning model
-├── scaler.pkl              # The saved scaler for data preprocessing
-└── README.md               # This file
+├── data
+│   └── customer_churn.csv
+├── models
+│   ├── churn_model.h5
+│   └── scaler.pkl
+├── notebooks
+│   └── churn-prediction.ipynb
+├── src
+│   └── app.py
+├── .gitignore
+├── requirements.txt
+└── README.md
 ```
 
 ## 🛠️ Getting Started
