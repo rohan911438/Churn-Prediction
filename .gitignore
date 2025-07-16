@@ -1,0 +1,17 @@
+# Ignore virtual environments
+churn_env/
+
+# Ignore Jupyter checkpoint files
+.ipynb_checkpoints/
+
+# Ignore model files
+*.h5
+*.pkl
+
+# Ignore compiled files
+__pycache__/
+*.pyc
+
+# Ignore large hidden files
+.DS_Store
+Thumbs.db
