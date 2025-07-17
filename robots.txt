@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rohan911438.github.io/Churn-Prediction/sitemap.xml

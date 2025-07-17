@@ -1,0 +1,52 @@
+# GitHub Pages Configuration
+# This file helps GitHub Pages understand how to serve your site
+
+# Site settings
+title: Customer Churn Prediction
+description: AI-powered customer churn prediction with modern web interface
+author: Rohan Kumar
+github_username: rohan911438
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# GitHub Pages settings
+repository: rohan911438/Churn-Prediction
+github: [metadata]
+
+# Exclude files from the site
+exclude:
+  - churn_env/
+  - venv/
+  - env/
+  - __pycache__/
+  - "*.py"
+  - requirements.txt
+  - .gitignore
+  - README.md
+
+# Include specific files
+include:
+  - index.html
+  - styles.css
+  - script.js
+  - data/
+  - models/
+
+# Plugins
+plugins:
+  - jekyll-github-metadata
+  - jekyll-sitemap
+
+# SEO and metadata
+lang: en
+url: "https://rohan911438.github.io"
+baseurl: "/Churn-Prediction"
+
+# Social media
+social:
+  github: rohan911438
+  
+# Analytics (you can add Google Analytics ID here later)
+# google_analytics: UA-XXXXXXXX-X
