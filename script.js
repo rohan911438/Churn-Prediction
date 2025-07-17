@@ -232,19 +232,25 @@ function clearCurrentForm() {
 
 // Predict churn
 function predictChurn() {
+    console.log('predictChurn called');
+    
     if (!validateAllForms()) {
+        console.log('Form validation failed');
         showNotification('Please complete all required fields in all tabs', 'error');
         return;
     }
     
     const data = collectFormData();
+    console.log('Collected form data:', data);
     
     // Show loading spinner
     showLoadingSpinner();
     
     // Simulate API call
     setTimeout(() => {
+        console.log('Generating prediction...');
         const prediction = generatePrediction(data);
+        console.log('Prediction generated:', prediction);
         displayResults(prediction);
         hideLoadingSpinner();
         showNotification('Prediction completed successfully!', 'success');
@@ -253,30 +259,27 @@ function predictChurn() {
 
 // Validate all forms
 function validateAllForms() {
-    const forms = document.querySelectorAll('form');
-    let allValid = true;
+    const form = document.querySelector('#churnForm');
+    if (!form) {
+        console.error('Form not found');
+        return false;
+    }
     
-    forms.forEach(form => {
-        if (!validateForm(form)) {
-            allValid = false;
-        }
-    });
-    
-    return allValid;
+    return validateForm(form);
 }
 
 // Collect form data
 function collectFormData() {
     const data = {};
     
-    // Collect from all forms
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
+    // Collect from the main form
+    const form = document.querySelector('#churnForm');
+    if (form) {
         const formData = new FormData(form);
         for (let [key, value] of formData.entries()) {
             data[key] = value;
         }
-    });
+    }
     
     return data;
 }
@@ -386,9 +389,15 @@ function generatePrediction(data) {
 
 // Display results
 function displayResults(prediction) {
-    const resultsContainer = document.querySelector('.results-container');
+    console.log('displayResults called with:', prediction);
     
-    if (!resultsContainer) return;
+    const resultsContainer = document.querySelector('.results-container');
+    console.log('Results container found:', !!resultsContainer);
+    
+    if (!resultsContainer) {
+        console.error('Results container not found');
+        return;
+    }
     
     // Update prediction result
     const resultElement = document.querySelector('.prediction-result');
@@ -404,6 +413,12 @@ function displayResults(prediction) {
                 </div>
                 <div class="risk-status risk-${prediction.riskClass}">
                     ${prediction.riskLevel}
+                </div>
+                <div style="margin-top: 1rem;">
+                    <button class="btn btn-secondary" onclick="scrollToSection('analytics')" style="font-size: 0.9rem; padding: 0.5rem 1rem;">
+                        <i class="fas fa-chart-line"></i>
+                        View in Analytics Dashboard
+                    </button>
                 </div>
             `;
         }
@@ -610,11 +625,97 @@ function createRevenueChart() {
 function updateAnalytics() {
     if (!predictionResults) return;
     
-    // Update charts with new data if available
+    console.log('Updating analytics with prediction:', predictionResults);
+    
+    // Update prediction summary widget
+    updatePredictionSummary();
+    
+    // Update churn distribution chart with new prediction
     if (charts.churnDistribution && predictionResults.riskClass) {
-        // This would update with real data in a production app
-        console.log('Analytics updated with new prediction');
+        const currentData = charts.churnDistribution.data.datasets[0].data;
+        
+        // Simulate updating the distribution based on the new prediction
+        if (predictionResults.riskClass === 'high') {
+            currentData[2] += 1; // High risk
+        } else if (predictionResults.riskClass === 'medium') {
+            currentData[1] += 1; // Medium risk
+        } else {
+            currentData[0] += 1; // Low risk
+        }
+        
+        charts.churnDistribution.update();
     }
+    
+    // Update risk factors chart with prediction factors
+    if (charts.riskFactors && predictionResults.factors) {
+        // Update with actual risk factor weights from the prediction
+        const factorWeights = calculateFactorWeights(predictionResults.factors);
+        charts.riskFactors.data.datasets[0].data = factorWeights;
+        charts.riskFactors.update();
+    }
+    
+    // Update tenure chart if tenure data is available
+    if (charts.tenure && predictionResults.tenure) {
+        // This would update tenure distribution in a real app
+        console.log('Tenure data available for analytics update');
+    }
+    
+    // Update revenue chart with potential revenue impact
+    if (charts.revenue && predictionResults.probability) {
+        // Calculate potential revenue impact
+        const revenueLoss = predictionResults.probability * 1000; // Simulated monthly revenue per customer
+        console.log(`Potential revenue impact: $${revenueLoss.toFixed(2)}`);
+    }
+}
+
+// Update prediction summary widget
+function updatePredictionSummary() {
+    const summaryWidget = document.getElementById('predictionSummary');
+    const riskLevelElement = document.getElementById('summaryRiskLevel');
+    const probabilityElement = document.getElementById('summaryProbability');
+    const topFactorElement = document.getElementById('summaryTopFactor');
+    
+    if (summaryWidget && predictionResults) {
+        // Show the summary widget
+        summaryWidget.style.display = 'block';
+        
+        // Update values
+        if (riskLevelElement) {
+            riskLevelElement.textContent = predictionResults.riskLevel;
+            riskLevelElement.className = `summary-value risk-${predictionResults.riskClass}`;
+        }
+        
+        if (probabilityElement) {
+            probabilityElement.textContent = `${(predictionResults.probability * 100).toFixed(1)}%`;
+            probabilityElement.className = `summary-value probability-${predictionResults.riskClass}`;
+        }
+        
+        if (topFactorElement && predictionResults.factors && predictionResults.factors.length > 0) {
+            topFactorElement.textContent = predictionResults.factors[0];
+        }
+        
+        // Scroll to analytics section to show the update
+        setTimeout(() => {
+            const analyticsSection = document.getElementById('analytics');
+            if (analyticsSection) {
+                analyticsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 1000);
+    }
+}
+
+// Calculate factor weights for chart update
+function calculateFactorWeights(factors) {
+    const weights = [0.2, 0.2, 0.2, 0.2]; // Default weights
+    
+    factors.forEach(factor => {
+        if (factor.includes('contract')) weights[0] += 0.1;
+        if (factor.includes('charges')) weights[1] += 0.1;
+        if (factor.includes('payment')) weights[2] += 0.1;
+        if (factor.includes('service')) weights[3] += 0.1;
+    });
+    
+    return weights;
 }
 
 // Loading spinner functions
@@ -768,6 +869,33 @@ function resetForm() {
     }
 }
 
+// Test prediction function with sample data
+function testPrediction() {
+    console.log('🧪 Running test prediction...');
+    
+    // Create sample prediction data
+    const samplePrediction = {
+        probability: 0.75,
+        riskLevel: 'High Risk',
+        riskClass: 'high',
+        message: 'This is a test prediction. Customer has high churn probability.',
+        factors: ['Month-to-month contract', 'High monthly charges', 'Electronic check payment'],
+        recommendations: ['Offer annual contract discount', 'Provide customer support', 'Promote automatic payment methods']
+    };
+    
+    console.log('📊 Sample prediction data:', samplePrediction);
+    
+    // Show loading spinner briefly
+    showLoadingSpinner();
+    
+    setTimeout(() => {
+        console.log('📺 Displaying test results...');
+        displayResults(samplePrediction);
+        hideLoadingSpinner();
+        showNotification('Test prediction completed!', 'success');
+    }, 1000);
+}
+
 // Export functions for global access if needed
 window.ChurnPredictionApp = {
     showTab,
@@ -775,5 +903,6 @@ window.ChurnPredictionApp = {
     clearCurrentForm,
     showNotification,
     scrollToSection,
-    resetForm
+    resetForm,
+    testPrediction
 };
