@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Customer Churn Prediction</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>ChurnPredict</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#predict" class="nav-link">Predict</a></li>
+                <li><a href="#analytics" class="nav-link">Analytics</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Predict Customer Churn with
+                    <span class="gradient-text">AI-Powered Analytics</span>
+                </h1>
+                <p class="hero-description">
+                    Advanced machine learning models to identify customers at risk of churning.
+                    Make data-driven decisions to improve customer retention.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('predict')">
+                        <i class="fas fa-rocket"></i>
+                        Start Prediction
+                    </button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('analytics')">
+                        <i class="fas fa-chart-bar"></i>
+                        View Analytics
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-cards">
+                    <div class="card card-1">
+                        <i class="fas fa-users"></i>
+                        <span>Customer Base</span>
+                    </div>
+                    <div class="card card-2">
+                        <i class="fas fa-brain"></i>
+                        <span>AI Analysis</span>
+                    </div>
+                    <div class="card card-3">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Retention</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI-Powered Predictions</h3>
+                    <p>Advanced machine learning algorithms analyze customer behavior patterns to predict churn probability.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Real-time Analytics</h3>
+                    <p>Interactive dashboards and visualizations provide insights into customer behavior and trends.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Risk Assessment</h3>
+                    <p>Comprehensive risk scoring helps prioritize retention efforts for high-value customers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prediction Section -->
+    <section id="predict" class="prediction-section">
+        <div class="container">
+            <h2 class="section-title">Customer Churn Prediction</h2>
+            <div class="prediction-container">
+                <div class="form-container">
+                    <form id="churnForm" class="churn-form">
+                        <div class="form-tabs">
+                            <button type="button" class="tab-btn active" data-tab="demographics">
+                                <i class="fas fa-user"></i>
+                                Demographics
+                            </button>
+                            <button type="button" class="tab-btn" data-tab="services">
+                                <i class="fas fa-cog"></i>
+                                Services
+                            </button>
+                            <button type="button" class="tab-btn" data-tab="billing">
+                                <i class="fas fa-credit-card"></i>
+                                Billing
+                            </button>
+                        </div>
+
+                        <!-- Demographics Tab -->
+                        <div class="tab-content active" id="demographics">
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="seniorCitizen">Senior Citizen</label>
+                                <select id="seniorCitizen" name="seniorCitizen" required>
+                                    <option value="">Select Option</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="partner">Partner</label>
+                                <select id="partner" name="partner" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dependents">Dependents</label>
+                                <select id="dependents" name="dependents" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tenure">Tenure (months)</label>
+                                <input type="number" id="tenure" name="tenure" min="0" max="100" required>
+                                <div class="input-help">Number of months the customer has stayed with the company</div>
+                            </div>
+                        </div>
+
+                        <!-- Services Tab -->
+                        <div class="tab-content" id="services">
+                            <div class="form-group">
+                                <label for="phoneService">Phone Service</label>
+                                <select id="phoneService" name="phoneService" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="multipleLines">Multiple Lines</label>
+                                <select id="multipleLines" name="multipleLines" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No phone service">No phone service</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="internetService">Internet Service</label>
+                                <select id="internetService" name="internetService" required>
+                                    <option value="">Select Option</option>
+                                    <option value="DSL">DSL</option>
+                                    <option value="Fiber optic">Fiber optic</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="onlineSecurity">Online Security</label>
+                                <select id="onlineSecurity" name="onlineSecurity" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="onlineBackup">Online Backup</label>
+                                <select id="onlineBackup" name="onlineBackup" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="deviceProtection">Device Protection</label>
+                                <select id="deviceProtection" name="deviceProtection" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="techSupport">Tech Support</label>
+                                <select id="techSupport" name="techSupport" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="streamingTV">Streaming TV</label>
+                                <select id="streamingTV" name="streamingTV" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="streamingMovies">Streaming Movies</label>
+                                <select id="streamingMovies" name="streamingMovies" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Billing Tab -->
+                        <div class="tab-content" id="billing">
+                            <div class="form-group">
+                                <label for="contract">Contract</label>
+                                <select id="contract" name="contract" required>
+                                    <option value="">Select Contract Type</option>
+                                    <option value="Month-to-month">Month-to-month</option>
+                                    <option value="One year">One year</option>
+                                    <option value="Two year">Two year</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="paperlessBilling">Paperless Billing</label>
+                                <select id="paperlessBilling" name="paperlessBilling" required>
+                                    <option value="">Select Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="paymentMethod">Payment Method</label>
+                                <select id="paymentMethod" name="paymentMethod" required>
+                                    <option value="">Select Payment Method</option>
+                                    <option value="Electronic check">Electronic check</option>
+                                    <option value="Mailed check">Mailed check</option>
+                                    <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                                    <option value="Credit card (automatic)">Credit card (automatic)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="monthlyCharges">Monthly Charges ($)</label>
+                                <input type="number" id="monthlyCharges" name="monthlyCharges" min="0" step="0.01" required>
+                                <div class="input-help">The amount charged to the customer monthly</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="totalCharges">Total Charges ($)</label>
+                                <input type="number" id="totalCharges" name="totalCharges" min="0" step="0.01" required>
+                                <div class="input-help">The total amount charged to the customer</div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                                <i class="fas fa-undo"></i>
+                                Reset Form
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-magic"></i>
+                                Predict Churn
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-container" id="resultsContainer">
+                    <div class="prediction-result" id="predictionResult">
+                        <div class="result-header">
+                            <h3>Prediction Result</h3>
+                            <div class="result-icon" id="resultIcon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                        </div>
+                        <div class="result-content" id="resultContent">
+                            <p class="result-message">Fill out the form to get a churn prediction</p>
+                        </div>
+                    </div>
+
+                    <div class="risk-factors" id="riskFactors" style="display: none;">
+                        <h4>Risk Factors</h4>
+                        <div class="factors-list" id="factorsList"></div>
+                    </div>
+
+                    <div class="recommendations" id="recommendations" style="display: none;">
+                        <h4>Recommendations</h4>
+                        <div class="recommendations-list" id="recommendationsList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section id="analytics" class="analytics-section">
+        <div class="container">
+            <h2 class="section-title">Analytics Dashboard</h2>
+            <div class="analytics-grid">
+                <div class="chart-container">
+                    <h3>Churn Distribution</h3>
+                    <canvas id="churnChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Risk Factors</h3>
+                    <canvas id="factorsChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Customer Tenure Distribution</h3>
+                    <canvas id="tenureChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Revenue Impact</h3>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About ChurnPredict</h2>
+                    <p>
+                        ChurnPredict is an advanced machine learning solution designed to help businesses
+                        identify customers at risk of churning. Our AI-powered platform analyzes customer
+                        behavior patterns, service usage, and billing information to provide accurate
+                        predictions and actionable insights.
+                    </p>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">95%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">10K+</div>
+                            <div class="stat-label">Predictions</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Monitoring</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="tech-stack">
+                        <div class="tech-item">
+                            <i class="fab fa-python"></i>
+                            <span>Python</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-brain"></i>
+                            <span>TensorFlow</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Scikit-learn</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-js-square"></i>
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-chart-line"></i>
+                        <span>ChurnPredict</span>
+                    </div>
+                    <p>Advanced AI-powered customer churn prediction platform.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <ul>
+                        <li><a href="#predict">Prediction Engine</a></li>
+                        <li><a href="#analytics">Analytics Dashboard</a></li>
+                        <li><a href="#">Risk Assessment</a></li>
+                        <li><a href="#">Real-time Monitoring</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ChurnPredict. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+        <p>Analyzing customer data...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

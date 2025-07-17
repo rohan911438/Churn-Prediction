@@ -1,15 +1,51 @@
 # Ignore virtual environments
 churn_env/
+venv/
+env/
+ENV/
 
 # Ignore Jupyter checkpoint files
 .ipynb_checkpoints/
 
-
-
 # Ignore compiled files
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.so
 
-# Ignore large hidden files
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore OS files
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Ignore logs
+*.log
+logs/
+
+# Ignore temporary files
+*.tmp
+*.temp
+.cache/
+
+# Ignore distribution files
+dist/
+build/
+*.egg-info/
+
+# Ignore environment variables
+.env
+.env.local
+
+# Ignore model artifacts (optional - uncomment if models are large)
+# models/*.h5
+# models/*.pkl
+
+# Ignore data files (optional - uncomment if data is sensitive)
+# data/*.csv
